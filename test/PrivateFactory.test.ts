@@ -32,12 +32,15 @@ describe("PrivateFactory", function() {
             data: {
                 public_data: "this is public",
                 // mark it as secret
-                private_data: privateFactory.secret("this is private")
+                private_data: privateFactory.secret("this is private"),
+                nest: {
+                    api_key: privateFactory.secret("this is api_key")
+                }
             }
         });
         // serialized assertion
         const serialized = JSON.stringify(data);
-        assert.strictEqual(serialized, `{"data":{"public_data":"this is public"}}`);
+        assert.strictEqual(serialized, `{"data":{"public_data":"this is public","nest":{}}}`);
     });
     it("should handle when secret value is serializec", () => {
         const privateFactory = new PrivateFactory();
