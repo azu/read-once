@@ -13,6 +13,12 @@ read-once objects for sensitive data.
 
 Quote from [Secure by Design](https://learning.oreilly.com/library/view/secure-by-design/9781617294358/).
 
+
+## Modules
+
+- `ReadOnce`: It allow to read at once
+- `NoSerializedValue`: It disallow to serialize value that is marked as secret.
+
 ## Install
 
 Install with [npm](https://www.npmjs.com/):
