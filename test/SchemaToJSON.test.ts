@@ -98,6 +98,33 @@ describe("SchemaToJSON", function() {
         const C = result.keyC;
         assert.deepStrictEqual(JSON.stringify(C), `{}`, "C values should be omitted");
     });
+    it("should support destructuring object", () => {
+        const object = {
+            keyA: "A",
+            keyB: "B",
+            keyC: {
+                CA: {
+                    CAB: {
+                        key: "value"
+                    }
+                }
+            }
+        };
+        const result = proxySchema(object, {
+            keyA: true,
+            keyB: true,
+            keyC: false
+        });
+        const {
+            keyC: {
+                CA: {
+                    CAB
+                }
+            }
+        } = result;
+        assert.deepStrictEqual(JSON.stringify(result), `{"keyA":"A","keyB":"B"}`, );
+        assert.deepStrictEqual(JSON.stringify(CAB), `{}`, "CAB values should be omitted");
+    });
     it("should support deep schema", () => {
         const object = {
             keyA: "A",
