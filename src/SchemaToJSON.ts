@@ -1,11 +1,10 @@
-const PARENT_SCEHMA = Symbol("Parent Schema Symbol");
 /***
  * Schema boolean value is true, pick the value
  * Schema boolean value is false, omit the value
  */
 type ValueToSchema<T> = {
     [P in keyof T]?: ValueToSchema<T[P]> | boolean;
-} & { [PARENT_SCEHMA]?: ValueToSchema<T> }
+}
 
 enum ParentSchema {
     FALSE,
@@ -52,7 +51,6 @@ const toJSONWithSchema = <T extends { [index: string]: any }>(
         return {}; // empty
     }
     const schema = pickSchema(localSchema, localKeyStack);
-    schema[PARENT_SCEHMA] = localSchema;
     // should traverse target, because schema properties is optional
     return Object.keys(localTarget).reduce((obj, key) => {
         const childSchemaOrBoolean = schema[key];
